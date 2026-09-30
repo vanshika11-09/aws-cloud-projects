@@ -1,16 +1,15 @@
-# AWS EC2 Nginx Shopping Website
+AWS EC2 Nginx Shopping Website
+---------------------------------
 
-## 📌 Project Overview
+Overview
+----------
 
 This project demonstrates the deployment of a static shopping website on **Amazon EC2** using **Amazon Linux 2023** and **Nginx** as the web server.
 
 The EC2 instance is configured with a public IP address and a Security Group that allows HTTP traffic on port 80. The website is hosted from the Nginx web root and can be accessed through the EC2 public IPv4 address.
 
----
-
-## 🎯 Project Objective
-
-The objective of this project is to gain hands-on experience with:
+Objective
+-----------
 
 * Amazon EC2
 * Amazon Linux 2023
@@ -22,11 +21,11 @@ The objective of this project is to gain hands-on experience with:
 * Static website deployment
 * AWS networking fundamentals
 
----
 
-## 🏗️ Architecture
+Architecture
+------------
 
-```text
+
                          INTERNET
                              |
                              | HTTP :80
@@ -48,11 +47,12 @@ The objective of this project is to gain hands-on experience with:
                              |
                              v
                   Vanshika Shopping Complex
-```
 
----
 
-## ☁️ AWS Services Used
+
+
+AWS Services Used
+-------------------
 
 | Service             | Purpose                               |
 | ------------------- | ------------------------------------- |
@@ -63,11 +63,11 @@ The objective of this project is to gain hands-on experience with:
 | Nginx               | Web server                            |
 | Amazon Linux 2023   | Operating system                      |
 
----
 
-# 🚀 Implementation Steps
-
-## Step 1 — Launch EC2 Instance
+       STEPS TO PERFORM 
+       ================
+       
+Step 1 — Launch EC2 Instance
 
 Navigate to:
 
@@ -87,7 +87,7 @@ The key pair is used to securely connect to the EC2 instance through SSH.
 
 ---
 
-## Step 2 — Configure Security Group
+Step 2 — Configure Security Group
 
 Create or select a Security Group with the following inbound rules:
 
@@ -97,7 +97,7 @@ Create or select a Security Group with the following inbound rules:
 | HTTP  | TCP      |   80 | 0.0.0.0/0 |
 | HTTPS | TCP      |  443 | 0.0.0.0/0 |
 
-### Why these ports?
+
 
 **Port 22 — SSH**
 
@@ -111,154 +111,82 @@ Allows users on the internet to access the website.
 
 Reserved for HTTPS traffic. HTTPS is not configured in this basic version of the project.
 
-> For a production deployment, HTTPS should be configured using TLS/SSL.
+For a production deployment, HTTPS should be configured using TLS/SSL.
 
----
 
-## Step 3 — Connect to EC2
+Step 3 — Connect to EC2
 
 After launching the instance, obtain its **Public IPv4 address** from:
 
 **EC2 → Instances → Shopping-Website**
 
-From a Windows terminal:
 
-```bash
 cd Downloads
-```
-
-Verify the key:
-
-```bash
 dir
-```
-
 Connect using SSH:
-
-```bash
 ssh -i shopping-key.pem ec2-user@YOUR_PUBLIC_IP
-```
 
-Example:
+Step 4 — Update the System
 
-```bash
-ssh -i shopping-key.pem ec2-user@13.234.120.100
-```
-
-Replace the example IP with the actual public IP of your EC2 instance.
-
----
-
-## Step 4 — Update the System
-
-After connecting to the EC2 instance:
-
-```bash
 sudo dnf update -y
-```
 
-This updates installed packages to the latest available versions.
-
----
-
-## Step 5 — Install Nginx
+Step 5 — Install Nginx
 
 Install Nginx:
 
-```bash
 sudo dnf install nginx -y
-```
 
 Start the Nginx service:
 
-```bash
 sudo systemctl start nginx
-```
+
 
 Enable Nginx to start automatically after a reboot:
 
-```bash
 sudo systemctl enable nginx
-```
 
 Check the service:
-
-```bash
 sudo systemctl status nginx
-```
 
 Expected status:
 
-```text
 Active: active (running)
-```
 
-Press `q` to exit the status screen.
-
----
-
-## Step 6 — Test Nginx
+Step 6 — Test Nginx
 
 Open a browser and enter:
-
-```text
 http://YOUR_PUBLIC_IP
-```
-
-For example:
-
-```text
-http://13.234.120.100
-```
 
 If Nginx is working correctly, the default Nginx page should appear.
 
----
-
-## Step 7 — Locate the Nginx Web Root
+Step 7 — Locate the Nginx Web Root
 
 Nginx serves website files from:
 
-```bash
 /usr/share/nginx/html
-```
 
 Navigate to the directory:
-
-```bash
 cd /usr/share/nginx/html
-```
 
-Verify the current directory:
-
-```bash
 pwd
-
 
 Expected:
 
 /usr/share/nginx/html
 
 
-List the files:
-
-
 ls -la
 
 
-## Step 8 — Replace the Default Website
+Step 8 — Replace the Default Website
 
 Remove the default Nginx page:
 
-
 sudo rm index.html
-
 
 Create the custom website:
 
-
 sudo nano index.html
-
 
 Paste the HTML code from:
 
@@ -267,28 +195,21 @@ website/index.html
 
 Save the file
 
-
-
-## Step 9 — Restart Nginx
+Step 9 — Restart Nginx
 
 Restart the web server:
 
-
 sudo systemctl restart nginx
-
 
 Verify:
 
-
 sudo systemctl status nginx
-
 
 Confirm that:
 
-
 Active: active (running)
 
-## Step 10 — Test the Shopping Website
+Step 10 — Test the Shopping Website
 
 
 http://YOUR_PUBLIC_IP
@@ -330,7 +251,7 @@ Check the Security Group and make sure HTTP port 80 is allowed.
 
 
 
-## Nginx is not running
+NOTE: Nginx is not running
 
     
 
@@ -403,6 +324,4 @@ Recommended screenshots:
  Author
 
 **Vanshika Chauhan**
-
-AWS Cloud & DevOps Learning Portfolio
 
